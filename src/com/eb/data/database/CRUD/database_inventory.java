@@ -145,7 +145,7 @@ public class database_inventory{
 		 
 		 psGetListFromIdArrange = con.prepareStatement("SELECT * FROM  " + datatablename + " WHERE `salesrank`<50000 AND `id` >=? AND  `id` <=? ");
 		 psGetListFromIdArrange2 = con.prepareStatement("SELECT * FROM  " + datatablename + " WHERE  `id` >=? AND  `id` <=? ");
-		 psGetGoodBooks = con.prepareStatement("SELECT * FROM  textbook_good");
+		 psGetGoodBooks = con.prepareStatement("SELECT * FROM  textbook_good_tmp");
 		 psRank = con.prepareStatement("update " + datatablename + " set salesrank = ? where isbn = ?");
 		 
 		 psListPrice = con.prepareStatement("update " + datatablename + " set listprice = ? where isbn = ?");

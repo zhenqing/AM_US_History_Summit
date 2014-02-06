@@ -127,7 +127,7 @@ public class GetLowestOfferListingsForISBN_Textbook2 {
 				if (nowindex + DATABASE_STEP < totalproducts )
 				{
 					System.out.println(nowindex);
-					if(nowindex%5000==001){
+					if(nowindex%10000==001){
 						my_db.createReport();
 						Thread.sleep( 5 * 60 * 1000 ); 
 						List<Item_InventoryExtension3> goodbooklist = my_db.getGoodBooks();
@@ -136,16 +136,20 @@ public class GetLowestOfferListingsForISBN_Textbook2 {
 							if(i.profit_a>0){
 								System.out.println("isbn:"+i.isbn+",aprice:"+i.aprice+",avg_aprice:"+Math.round(i.avg_aprice)+",profit:"+Math.round(i.profit_a));
 								sendMail("isbn:"+i.isbn+",aprice:"+i.aprice+",avg_aprice:"+Math.round(i.avg_aprice)+",profit:"+Math.round(i.profit_a),"zhaozhenqing@gmail.com","zhendian aprice:"+i.isbn);
+								sendMail("isbn:"+i.isbn+",aprice:"+i.aprice+",avg_aprice:"+Math.round(i.avg_aprice)+",profit:"+Math.round(i.profit_a),"barberryibport@gmail.com","zhendian aprice:"+i.isbn);
+								
 							}
 							System.out.println("new:");
 							if(i.profit_tnl>0){
 								System.out.println("isbn:"+i.isbn+",tnlprice:"+i.tnlprice+",avg_tnlprice:"+Math.round(i.avg_tnlprice)+",profit:"+Math.round(i.profit_tnl));
 								sendMail("isbn:"+i.isbn+",tnlprice:"+i.tnlprice+",avg_tnlprice:"+Math.round(i.avg_tnlprice)+",profit:"+Math.round(i.profit_tnl),"zhaozhenqing@gmail.com","zhendian tnlprice:"+i.isbn);
+								sendMail("isbn:"+i.isbn+",tnlprice:"+i.tnlprice+",avg_tnlprice:"+Math.round(i.avg_tnlprice)+",profit:"+Math.round(i.profit_tnl),"barberryibport@gmail.com","zhendian tnlprice:"+i.isbn);
 							}
 							System.out.println("old:");
 							if(i.profit_tul>0){
 								System.out.println("isbn:"+i.isbn+",tulprice:"+i.tulprice+",avg_tulprice:"+Math.round(i.avg_tulprice)+",profit:"+Math.round(i.profit_tul));
 								sendMail("isbn:"+i.isbn+",tulprice:"+i.tulprice+",avg_tulprice:"+Math.round(i.avg_tulprice)+",profit:"+Math.round(i.profit_tul),"zhaozhenqing@gmail.com","zhendian tulprice:"+i.isbn);
+								sendMail("isbn:"+i.isbn+",tulprice:"+i.tulprice+",avg_tulprice:"+Math.round(i.avg_tulprice)+",profit:"+Math.round(i.profit_tul),"barberryibport@gmail.com","zhendian tulprice:"+i.isbn);
 							}
 						}
 						//sendMail();
