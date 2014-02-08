@@ -127,7 +127,7 @@ public class GetLowestOfferListingsForISBN_Textbook2 {
 				if (nowindex + DATABASE_STEP < totalproducts )
 				{
 					System.out.println(nowindex);
-					if(nowindex%10000==001){
+					if(nowindex%5000==001){
 						my_db.createReport();
 						Thread.sleep( 5 * 60 * 1000 ); 
 						List<Item_InventoryExtension3> goodbooklist = my_db.getGoodBooks();
@@ -200,7 +200,6 @@ public class GetLowestOfferListingsForISBN_Textbook2 {
 		} catch (MessagingException e) {
 			Thread.sleep(30 * 1000);
 			sendMail(content,toAddress,subject);
-			throw new RuntimeException(e);
 			
 		}
     }
