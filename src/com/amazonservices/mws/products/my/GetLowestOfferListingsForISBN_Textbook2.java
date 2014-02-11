@@ -127,7 +127,7 @@ public class GetLowestOfferListingsForISBN_Textbook2 {
 				if (nowindex + DATABASE_STEP < totalproducts )
 				{
 					System.out.println(nowindex);
-					if(nowindex%5000==001){
+					if(nowindex%5000==1721){
 						my_db.createReport();
 						Thread.sleep( 5 * 60 * 1000 ); 
 						List<Item_InventoryExtension3> goodbooklist = my_db.getGoodBooks();
@@ -186,21 +186,26 @@ public class GetLowestOfferListingsForISBN_Textbook2 {
 				return new PasswordAuthentication(username, password);
 			}
 		  });
-		try {
- 
-			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("ebzhenqing@gmail.com"));
-			message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse(toAddress));
-			message.setSubject(subject);
-			message.setText(content);
-			Transport.send(message);
-			System.out.println("Done");
- 
-		} catch (MessagingException e) {
-			Thread.sleep(30 * 1000);
-			sendMail(content,toAddress,subject);
-			
+		int try_time=0;
+		while (try_time<2){
+			try {
+	 
+				Message message = new MimeMessage(session);
+				message.setFrom(new InternetAddress("ebzhenqing@gmail.com"));
+				message.setRecipients(Message.RecipientType.TO,
+					InternetAddress.parse(toAddress));
+				message.setSubject(subject);
+				message.setText(content);
+				Transport.send(message);
+				System.out.println("Done");
+				try_time=2;
+	 
+			} catch (MessagingException e) {
+				System.out.println("Send mail error, sleep 5 minutes");
+				Thread.sleep(5*60 * 1000);
+				//sendMail(content,toAddress,subject);
+				
+			}
 		}
     }
     public static void  gaijiafunc(int startpoint, int endpoint ) throws IOException, SQLException, InterruptedException, InstantiationException, IllegalAccessException, ClassNotFoundException
