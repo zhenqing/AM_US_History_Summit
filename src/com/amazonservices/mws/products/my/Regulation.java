@@ -335,8 +335,8 @@ public class Regulation{
     	System.out.println(info);
     	if((lowestprice[1]*0.85-lowestprice[0]>14.35)&&(lowestprice[2]-lowestprice[1]>4)){
     		System.out.println("!!!");
-    		sendMail(info,"zhaozhenqing@gmail.com","Summit isbn:"+asinString);
-    		sendMail(info,"barberryibport@gmail.com","Summit isbn:"+asinString);
+//    		sendMail(info,"ebzhenqing@gmail.com","Summit isbn:"+asinString);
+//    		sendMail(info,"barberryibport@gmail.com","Summit isbn:"+asinString);
     		long time = System.currentTimeMillis();
     		Timestamp timestamp = new Timestamp(time);
     		my_db.insertSummit(asinString,lowestprice[0], lowestprice[1], lowestprice[2], timestamp);
@@ -346,7 +346,7 @@ public class Regulation{
     }
     
     public static void sendMail(String content,String toAddress,String subject){
-    	final String username = "ebzhenqing@gmail.com";
+    	final String username = "ebdataservice@gmail.com";
 		final String password = "zhen2410144";
  
 		Properties props = new Properties();
@@ -361,22 +361,32 @@ public class Regulation{
 				return new PasswordAuthentication(username, password);
 			}
 		  });
- 
-		try {
- 
-			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("ebzhenqing@gmail.com"));
-			message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse(toAddress));
-			message.setSubject(subject);
-			message.setText(content);
- 
-			Transport.send(message);
- 
-			System.out.println("Done");
- 
-		} catch (MessagingException e) {
-			throw new RuntimeException(e);
+		int try_time=0;
+		while (try_time<3){
+			try {
+	 
+				Message message = new MimeMessage(session);
+				message.setFrom(new InternetAddress("ebdataservice@gmail.com"));
+				message.setRecipients(Message.RecipientType.TO,
+					InternetAddress.parse(toAddress));
+				message.setSubject(subject);
+				message.setText(content);
+				Transport.send(message);
+				System.out.println("Done");
+				try_time=2;
+	 
+			} catch (MessagingException e) {
+				System.out.println("Send mail error, sleep 5 minutes");
+				try_time++;
+				try {
+					Thread.sleep(5*60 * 1000);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				//sendMail(content,toAddress,subject);
+				
+			}
 		}
     }
 
@@ -838,6 +848,10 @@ public class Regulation{
 			{
     			continue;
 			}
+    		if ( cs.get(i).getinternation() )
+			{
+    			continue;
+			}
     		if (  ( cs.get(i).getSellerFeedbackCount() < 100 ) )
     		{
     		//	continue;
@@ -925,6 +939,10 @@ public static double[] calculate_LowestNewPrice_AP(List<LowestOffer> cs)
 		System.out.print(cs.get(i).getListingPrice());
 		System.out.println("feedback"+cs.get(i).getSellerFeedbackCount()+"channel"+cs.get(i).getChannel());
 		if ( cs.get(i).getListingPrice() == null )
+		{
+			continue;
+		}
+		if ( cs.get(i).getinternation()  )
 		{
 			continue;
 		}

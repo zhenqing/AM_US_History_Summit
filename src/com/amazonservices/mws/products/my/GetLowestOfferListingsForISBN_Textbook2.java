@@ -75,7 +75,7 @@ public class GetLowestOfferListingsForISBN_Textbook2 {
      */
 	
 //  private static List<LowestOffer> Costs = new ArrayList<LowestOffer>();
-//	private double lowestprice = 0;
+//	private double lowestprice 
 //	private double chengbenjia = 0;
 	
 	private static Condition myusedcon;
@@ -113,6 +113,7 @@ public class GetLowestOfferListingsForISBN_Textbook2 {
 		long time = System.currentTimeMillis();
 		Timestamp timestamp = new Timestamp(time);
 		my_db_position.insertStartPoint(dbpositionname,nowindex,timestamp);
+		while(true){
 		if ( nowindex == totalproducts )
 		{
 			nowindex = 1;
@@ -169,9 +170,10 @@ public class GetLowestOfferListingsForISBN_Textbook2 {
 			}
 			nowindex = 1;
 		}
+		}
     	
     public static void sendMail(String content,String toAddress,String subject) throws InterruptedException{
-    	final String username = "ebzhenqing@gmail.com";
+    	final String username = "ebdataservice@gmail.com";
 		final String password = "zhen2410144";
  
 		Properties props = new Properties();
@@ -187,7 +189,7 @@ public class GetLowestOfferListingsForISBN_Textbook2 {
 			}
 		  });
 		int try_time=0;
-		while (try_time<2){
+		while (try_time<3){
 			try {
 	 
 				Message message = new MimeMessage(session);
@@ -202,6 +204,7 @@ public class GetLowestOfferListingsForISBN_Textbook2 {
 	 
 			} catch (MessagingException e) {
 				System.out.println("Send mail error, sleep 5 minutes");
+				try_time++;
 				Thread.sleep(5*60 * 1000);
 				//sendMail(content,toAddress,subject);
 				
@@ -237,9 +240,7 @@ public class GetLowestOfferListingsForISBN_Textbook2 {
    			return; 
    		}
    		
-   		
    		getchengbenjia(booklist,myusedcon,"isbn");    
-     
    	}
        
    
@@ -277,7 +278,7 @@ public class GetLowestOfferListingsForISBN_Textbook2 {
     	while ( myCosts.size()!= aplist.size() )
     	{
     		// some unexpected error happened.
-    		if (retry_time > 1)
+    		if (retry_time > 3)
     		{
     			break;
     		}
@@ -299,7 +300,7 @@ public class GetLowestOfferListingsForISBN_Textbook2 {
     		}
     		retry_time ++;
     		System.out.println("sleep 30 seconds");
-    		//Thread.sleep(30 * 1000);
+    		Thread.sleep(30 * 1000);
     		myCosts1 = getCosts(asinString, myusedcon);
     		
     	}

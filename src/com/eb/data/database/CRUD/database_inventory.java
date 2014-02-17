@@ -845,9 +845,9 @@ public class database_inventory{
 		    	ii.avg_tnlprice= rst.getDouble(5);
 		    	ii.tulprice = rst.getDouble(6);
 		    	ii.avg_tulprice = rst.getDouble(7);
-		    	ii.profit_a = 0.85*ii.avg_aprice-ii.aprice-15.35;
-		    	ii.profit_tnl = 0.85*ii.avg_tnlprice-ii.tnlprice-15.35;
-		    	ii.profit_tul = 0.85*ii.avg_tulprice-ii.tulprice-15.35;
+		    	ii.profit_a = 0.85*ii.avg_aprice-ii.aprice-5.35;
+		    	ii.profit_tnl = 0.85*ii.avg_tnlprice-ii.tnlprice-5.35;
+		    	ii.profit_tul = 0.85*ii.avg_tulprice-ii.tulprice-5.35;
 		    	inventorylist.add(ii);
 		     }   
 			 return inventorylist;
